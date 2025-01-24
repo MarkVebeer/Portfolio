@@ -44,14 +44,14 @@ export const Contact = () => {
       <p className="text-gray-400 text-center mb-16 max-w-2xl mx-auto">
         Let's collaborate and create something amazing together
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div className="flex flex-wrap justify-center gap-8 max-w-6xl mx-auto">
         {socialLinks.map((social, index) => (
           <a
             key={index}
             href={social.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="glass-card hover-card"
+            className="glass-card hover-card basis-[calc(33.33%-2rem)] min-w-[320px] max-w-md"
           >
             <div className="flex items-center gap-6">
               <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${social.color} p-3 flex items-center justify-center`}>
