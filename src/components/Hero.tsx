@@ -4,8 +4,8 @@ import DecryptedText from './DecryptedText';
 export const Hero = () => {
   return (
     <section className="min-h-screen flex flex-col justify-center items-center px-8 py-24 relative z-10">
-      <div className="max-w-4xl w-full text-center">
-        <h1 className="text-7xl font-bold mb-6 px-4 pl-8">
+      <div className="max-w-[90vw] w-full text-center">
+        <h1 className="text-7xl lg:text-[7rem] font-bold mb-6 px-4 pl-8 whitespace-nowrap">
           <DecryptedText
             text="Véber-Jurassa Márk"
             speed={60}
