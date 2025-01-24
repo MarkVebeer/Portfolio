@@ -195,11 +195,15 @@ export default function DecryptedText({
         {displayText.split('').map((char, index) => {
           const isRevealedOrDone =
             revealedIndices.has(index) || !isScrambling || !isHovering
+          
+          const classes = isRevealedOrDone 
+            ? className 
+            : encryptedClassName.replace(/tracking-wide/g, '').trim()
 
           return (
             <span
               key={index}
-              className={isRevealedOrDone ? className : encryptedClassName}
+              className={`gradient-text duration-200 ${classes}`}
             >
               {char}
             </span>

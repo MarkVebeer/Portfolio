@@ -55,7 +55,7 @@ export const GlitchBackground: React.FC = () => {
           const y = drops[i] * fontSize;
 
           // Draw current character
-          ctx.fillStyle = '#fff';
+          ctx.fillStyle = '#6d6d83';
           ctx.fillText(char, x, y);
 
           // Draw trailing characters with fade
@@ -64,7 +64,7 @@ export const GlitchBackground: React.FC = () => {
             if (trailY < 0) continue;
 
             const alpha = (8 - j) / 8;
-            ctx.fillStyle = `rgba(51, 51, 51, ${alpha})`;
+            ctx.fillStyle = `rgba(71, 78, 147, ${alpha})`;
             ctx.fillText(char, x, trailY);
           }
 

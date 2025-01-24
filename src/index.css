@@ -4,11 +4,11 @@
 
 @layer base {
   body {
-    @apply bg-[#0a0a0a] text-white;
+    @apply bg-[#0a0a0a] text-white font-sans;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply leading-[1.2] py-[0.15em];
+    @apply font-rubik leading-[1.2] py-[0.15em];
   }
 }
 
@@ -32,12 +32,11 @@
   @apply bg-clip-text text-transparent font-bold relative z-50;
   background-image: linear-gradient(
     135deg,
-    rgb(96, 165, 250) 0%,      /* blue-400 */
-    rgb(167, 139, 250) 20%,    /* violet-400 */
-    rgb(244, 114, 182) 40%,    /* pink-400 */
-    rgb(129, 140, 248) 60%,    /* indigo-400 */
-    rgb(147, 197, 253) 80%,    /* blue-300 */
-    rgb(96, 165, 250) 100%     /* blue-400 */
+    #474E93 0%,      /* blue-400 */
+    #7E5CAD 25%,    /* violet-400 */
+    #72BAA9 50%,    /* pink-400 */
+    #D5E7B5 75%,    /* indigo-400 */
+    #474E93 100%    /* blue-400 again to complete the cycle */
   );
   background-size: 400% 400%;
   animation: gradient 15s ease-in-out infinite;

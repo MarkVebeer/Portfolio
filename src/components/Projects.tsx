@@ -4,22 +4,16 @@ import { Github } from 'lucide-react';
 
 const projects = [
   {
-    title: 'E-Commerce Platform',
-    description: 'A modern e-commerce solution with real-time inventory and payment processing.',
-    tags: ['React', 'Node.js', 'MongoDB'],
-    github: 'https://github.com/markveber/ecommerce-platform'
+    title: 'Noise Generator',
+    description: 'A simple sound generator that runs in the system tray. It generates a continuous tone based on configurable frequency and volume settings.',
+    tags: ['Python'],
+    github: 'https://github.com/MarkVebeer/Noise-Generator'
   },
   {
-    title: 'Analytics Dashboard',
-    description: 'Real-time data visualization platform for business metrics.',
-    tags: ['Vue.js', 'D3.js', 'Firebase'],
-    github: 'https://github.com/markveber/analytics-dashboard'
-  },
-  {
-    title: 'Social Media App',
-    description: 'Mobile-first social platform with real-time messaging.',
-    tags: ['React Native', 'GraphQL', 'AWS'],
-    github: 'https://github.com/markveber/social-media-app'
+    title: 'BattyaBo$$',
+    description: 'BattyaBoss is a comprehensive Discord bot designed to handle nearly all aspects of Discord server management and engagement.',
+    tags: ['Node.js', 'Discord.js'],
+    github: 'https://github.com/MarkVebeer/BattyaBoss'
   }
 ];
 
@@ -34,13 +28,12 @@ export const Projects = () => {
 
   return (
     <section id="projects" className="py-20 px-[10%]">
-      <h2 className="text-5xl font-bold text-center mb-4 gradient-text">Featured Projects</h2>
+      <h2 className="text-5xl font-bold text-center mb-4 gradient-text">Featured Project(s)</h2>
       <p className="text-gray-400 text-center mb-16 max-w-2xl mx-auto">
-        Explore some of my recent work and creative endeavors
       </p>
-      <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div ref={ref as React.RefObject<HTMLDivElement>} className="flex justify-center flex-wrap gap-8">
         {projects.map((project, index) => (
-          <div key={index} className="glass-card hover-card flex flex-col">
+          <div key={index} className="glass-card hover-card flex flex-col w-full max-w-md">
             <div className="flex-1">
               <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
               <p className="text-gray-300 mb-4">{project.description}</p>

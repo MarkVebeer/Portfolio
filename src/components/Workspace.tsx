@@ -4,16 +4,16 @@ import { Laptop, Keyboard, Headphones, Monitor, Mouse, Mic } from 'lucide-react'
 
 const workspaceItems = {
   'Main Setup': [
-    { title: 'Example PC', specs: 'Processor • 16GB RAM • 512GB SSD', icon: Laptop },
-    { title: 'Example Monitor', specs: '27-inch • 60Hz • DP 2.1', icon: Monitor }
+    { title: 'PC', specs: 'R7 5700x • 32GB RAM • RX 6700', icon: Laptop },
+    { title: 'LG UltraWide', specs: '34-inch • 160Hz', icon: Monitor }
   ],
   'Peripherals': [
-    { title: 'Example Keyboard', specs: 'Mechanical • Brown Switches • RGB', icon: Keyboard },
-    { title: 'Example Mouse', specs: 'Wireless • Custom Buttons • Ergonomic', icon: Mouse }
+    { title: 'Keychron Q2', specs: 'Silver • Brown Switches • JM-68', icon: Keyboard },
+    { title: 'Logitech G502', specs: 'Hero 25K • 800 DPI', icon: Mouse }
   ],
   'Audio': [
-    { title: 'Example Headphones', specs: 'Wireless • Noise Cancelling', icon: Headphones },
-    { title: 'Example Microphone', specs: 'USB Microphone • Custom Arm', icon: Mic }
+    { title: '7hz x Crinacle: Zero 2', specs: 'IEM Earphones', icon: Headphones },
+    { title: 'Razer Seiren Mini', specs: 'USB Microphone', icon: Mic }
   ]
 };
 
@@ -29,11 +29,10 @@ export const Workspace = () => {
     <section id="setup" className="py-20 px-[10%] relative" ref={ref}>
       <h2 className="text-5xl font-bold text-center mb-4 gradient-text">My Workspace</h2>
       <p className="text-gray-400 text-center mb-16 max-w-2xl mx-auto">
-        The tools and equipment I use to bring ideas to life
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
+      <div className="flex flex-wrap justify-center gap-12 max-w-6xl mx-auto">
         {Object.entries(workspaceItems).map(([category, items], index) => (
-          <div key={index} className="flex flex-col space-y-6">
+          <div key={index} className="flex flex-col space-y-6 w-full max-w-md">
             <h3 className="text-2xl font-semibold gradient-text text-center">{category}</h3>
             <div className="flex-1 grid grid-rows-2 gap-6">
               {items.map((item, itemIndex) => (

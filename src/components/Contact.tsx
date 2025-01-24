@@ -4,23 +4,23 @@ import { Instagram, Disc as Discord, Twitter, ExternalLink, Check } from 'lucide
 const socialLinks = [
   {
     name: 'Instagram',
-    handle: '@JaneDoe',
+    handle: '@markvebeer',
     icon: Instagram,
-    link: 'https://www.instagram.com/JaneDoe',
+    link: 'https://www.instagram.com/markvebeer/',
     color: 'from-pink-500 to-purple-500'
   },
   {
     name: 'Discord',
-    handle: 'JaneDoe',
+    handle: 'markveber',
     icon: Discord,
     link: 'https://discordapp.com/users/JaneDoe',
     color: 'from-indigo-500 to-blue-500'
   },
   {
     name: 'x.com',
-    handle: '@JaneDoe',
+    handle: '@VeberJMark',
     icon: Twitter,
-    link: 'https://twitter.com/JaneDoe',
+    link: 'https://x.com/VeberJMark',
     color: 'from-blue-400 to-cyan-400'
   }
 ];
