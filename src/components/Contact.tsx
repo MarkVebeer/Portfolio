@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Instagram, ExternalLink, Check } from 'lucide-react';
+import { useAnimate } from '../hooks/useAnimate'; // Adjust the import path as necessary
 
 const DiscordIcon = () => (
   <svg viewBox="0 -28.5 256 256" version="1.1" preserveAspectRatio="xMidYMid">
@@ -42,6 +43,12 @@ const socialLinks = [
 
 export const Contact = () => {
   const [showNotification, setShowNotification] = useState(false);
+  const { ref } = useAnimate({
+    animation: 'fadeInUp',
+    duration: 800,
+    cascade: true,
+    when: 'inView'
+  });
 
   const handleCopy = async (handle: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -59,14 +66,14 @@ export const Contact = () => {
       <p className="text-gray-400 text-center mb-16 max-w-2xl mx-auto">
         Let's collaborate and create something amazing together
       </p>
-      <div className="flex flex-wrap justify-center gap-8 max-w-6xl mx-auto">
+      <div ref={ref as React.RefObject<HTMLDivElement>} className="flex flex-wrap justify-center gap-8 max-w-6xl mx-auto">
         {socialLinks.map((social, index) => (
           <a
             key={index}
             href={social.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="glass-card hover-card basis-[calc(33.33%-2rem)] min-w-[320px] max-w-md"
+            className="glass-card hover-card basis-[calc(33.33%-2rem)] min-w-[320px] max-w-md opacity-0"
           >
             <div className="flex items-center gap-6">
               <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${social.color} p-3 flex items-center justify-center`}>

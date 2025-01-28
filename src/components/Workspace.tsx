@@ -19,20 +19,22 @@ const workspaceItems = {
 
 export const Workspace = () => {
   const { ref } = useAnimate({
-    animation: 'fadeInLeft',
+    animation: 'fadeInUp',
     duration: 800,
-    delay: 200,
+    cascade: true,
     when: 'inView'
   });
 
   return (
-    <section id="setup" className="py-20 px-[10%] relative" ref={ref}>
+    <section id="setup" className="py-20 px-[10%] relative">
+      {/* A h2 elem stabilan marad, nincs rá animáció */}
       <h2 className="text-5xl font-bold text-center mb-4 gradient-text">My Workspace</h2>
       <p className="text-gray-400 text-center mb-16 max-w-2xl mx-auto">
       </p>
-      <div className="flex flex-wrap justify-center gap-12 max-w-6xl mx-auto">
+      {/* Az animáció csak erre a div-re vonatkozik */}
+      <div ref={ref as React.RefObject<HTMLDivElement>} className="flex flex-wrap justify-center gap-12 max-w-6xl mx-auto">
         {Object.entries(workspaceItems).map(([category, items], index) => (
-          <div key={index} className="flex flex-col space-y-6 w-full max-w-md">
+          <div key={index} className="flex flex-col space-y-6 w-full max-w-md opacity-0">
             <h3 className="text-2xl font-semibold gradient-text text-center">{category}</h3>
             <div className="flex-1 grid grid-rows-2 gap-6">
               {items.map((item, itemIndex) => (

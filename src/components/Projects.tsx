@@ -21,7 +21,6 @@ export const Projects = () => {
   const { ref } = useAnimate({
     animation: 'fadeInUp',
     duration: 800,
-    delay: 200,
     cascade: true,
     when: 'inView'
   });
@@ -33,7 +32,7 @@ export const Projects = () => {
       </p>
       <div ref={ref as React.RefObject<HTMLDivElement>} className="flex justify-center flex-wrap gap-8">
         {projects.map((project, index) => (
-          <div key={index} className="glass-card hover-card flex flex-col w-full max-w-md">
+          <div key={index} className="glass-card hover-card flex flex-col w-full max-w-md opacity-0">
             <div className="flex-1">
               <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
               <p className="text-gray-300 mb-4">{project.description}</p>
