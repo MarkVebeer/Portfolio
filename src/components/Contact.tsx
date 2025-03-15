@@ -29,7 +29,7 @@ const socialLinks = [
     name: 'Discord',
     handle: 'markveber',
     icon: DiscordIcon,
-    link: '',
+    link: 'https://discord.com',
     color: 'from-indigo-500 to-blue-500'
   },
   {
