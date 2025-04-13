@@ -5,7 +5,7 @@ import { Github } from 'lucide-react';
 const projects = [
   {
     title: 'Noise Generator',
-    description: 'A simple sound generator that runs in the system tray. It generates a continuous tone based on configurable frequency and volume settings.',
+    description: 'Simple sound generator that runs in the system tray. It generates a continuous tone based on configurable frequency and volume settings.',
     tags: ['Python'],
     github: 'https://github.com/MarkVebeer/Noise-Generator'
   },
@@ -14,6 +14,12 @@ const projects = [
     description: 'BattyaBoss is a comprehensive Discord bot designed to handle nearly all aspects of Discord server management and engagement.',
     tags: ['Node.js', 'Discord.js'],
     github: 'https://github.com/MarkVebeer/BattyaBoss'
+  },
+  {
+    title: 'Collection Manager',
+    description: 'Simple collection management tool designed for easy scanning, primarily focused on food products like Pringles, utilizing barcodes for convenience.',
+    tags: ['PHP'],
+    github: 'https://github.com/MarkVebeer/collection_manager'
   }
 ];
 
