@@ -16,11 +16,11 @@ const projects = [
     github: 'https://github.com/MarkVebeer/BattyaBoss'
   },
   {
-    title: 'Collection Manager',
-    description: 'Simple collection management tool designed for easy scanning, primarily focused on food products like Pringles, utilizing barcodes for convenience.',
-    tags: ['PHP'],
-    github: 'https://github.com/MarkVebeer/collection_manager'
-  }
+    title: 'F1 Calendar',
+    description: 'A calendar application for Formula 1 enthusiasts to track sessions with built-in discord integration for notifications.',
+    tags: ['React', 'TypeScript', "Node.js"],
+    github: 'https://github.com/MarkVebeer/F1-Calendar'
+  },
 ];
 
 export const Projects = () => {
