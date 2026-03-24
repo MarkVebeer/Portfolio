@@ -21,6 +21,12 @@ const projects = [
     tags: ['React', 'TypeScript', "Node.js"],
     github: 'https://github.com/MarkVebeer/F1-Calendar'
   },
+  {
+    title: 'Darts Counter',
+    description: 'A sleek, static, but fully responsive Darts Score Tracker for 301/501 matches. With built in current state saves in your own browser.',
+    tags: ['HTML', 'CSS', 'JavaScript'],
+    github: 'https://github.com/MarkVebeer/Darts-Counter'
+  }
 ];
 
 export const Projects = () => {
