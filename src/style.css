@@ -1,0 +1,278 @@
+/* Layout: beaver-pond palette. Dark walnut page, birch-cream type, honey accent (beaver teeth, fresh-cut wood),
+   bark brown for fills, moss for small living touches. Behind everything, a quiet ASCII fluid in bark and honey (ascii-bg.ts). */
+:root {
+  --bg: #2b2119;
+  --fg: #f2e6d3;
+  --accent: #e3a048;
+  --accent-deep: #7a5233;
+  --moss: #8aa35a;
+  --ink-dim: rgba(242, 230, 211, 0.62);
+  --line: rgba(242, 230, 211, 0.5);
+  --surface: rgba(54, 42, 32, 0.92);
+  --border: rgba(242, 230, 211, 0.1);
+
+  /* Fraunces: a soft, variable serif; its optical size follows the text size, so big headings get the display cut */
+  --f-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --f-pixel: "DotGothic16", "IBM Plex Mono", monospace;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  color-scheme: dark;
+}
+/* Window must be the scroll container: smooth scroll and scroll-linked animations both read window scroll. */
+html, body { height: auto !important; overflow-y: visible !important; }
+html.lenis, html.lenis body { height: auto !important; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg); color: var(--fg);
+  font-family: var(--f-display); font-size: 16px; line-height: 1.5;
+  overflow-x: clip;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+p, h1, h2, h3 { margin: 0; }
+h1, h2, h3 { text-wrap: balance; }
+.mono { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.px { font-family: var(--f-pixel); }
+
+/* ---------- ASCII fluid background ---------- */
+#bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; pointer-events: none; }
+
+/* ---------- hero ---------- */
+main { position: relative; z-index: 2; overflow-x: clip; }
+.hero { position: relative; }
+/* the landing screen; it scrolls away normally while the log drifts off downstream (beaver.ts) */
+.hero-stage { position: relative; height: 100svh; min-height: 600px; overflow: clip; }
+/* the beaver scene sits fixed behind the page; scrolling dives it underwater and fades it into the page
+   background (beaver.ts). The giant type is only shown when WebGL isn't available. */
+#beaver { position: fixed; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; touch-action: pan-y; }
+.has-beaver .hero .giant { display: none; }
+.hero .giant {
+  position: absolute; font-weight: 900; line-height: 0.78; letter-spacing: -0.02em; white-space: nowrap;
+  color: var(--fg);
+}
+.hero .mask { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.16em 0.1em 0.04em; margin: -0.16em -0.1em 0; }
+.hero .ch { display: inline-block; will-change: transform; }
+.g1 { top: 13%; left: -0.06em; font-size: clamp(120px, 31vw, 520px); font-stretch: 110%; }
+.g2 { bottom: 12%; right: -0.08em; font-size: clamp(120px, 31vw, 520px); font-style: italic; font-weight: 300; font-stretch: 62%; letter-spacing: -0.02em; }
+.hero-meta {
+  position: absolute; left: var(--gutter-l); right: var(--gutter-r); bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap;
+}
+.hero-meta p { max-width: 30ch; font-size: 14px; line-height: 1.35; background: var(--bg); padding: 10px 14px; border-radius: 4px; }
+.scroll-hint { background: var(--bg); padding: 8px 12px; border-radius: 999px; }
+.scroll-hint { display: flex; align-items: center; gap: 8px; }
+.scroll-hint i { display: block; width: 1px; height: 38px; background: var(--fg); transform-origin: top; }
+
+
+/* ---------- section scaffolding ---------- */
+.panel { position: relative; background: var(--bg); z-index: 2; }
+.glass-sec { position: relative; z-index: 2; }
+/* flat card: near-solid so text stays clear over the glyphs, with a hairline border */
+.glass { border-radius: 10px; overflow: hidden; background: var(--surface); border: 1px solid var(--border); }
+.pill { border: 1px solid var(--border); padding: 6px 12px; border-radius: 999px; }
+.wrap { padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+.sec-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; padding-block: 96px 36px; }
+.sec-head h2 { font-weight: 900; font-stretch: 125%; font-size: clamp(44px, 9vw, 140px); line-height: 0.85; letter-spacing: -0.02em; }
+
+/* ---------- projects: title on the left, an endless row of tall cards on the right (carousel.ts) ---------- */
+.work {
+  position: relative; z-index: 2; padding-block: clamp(120px, 18vh, 240px); padding-right: 0;
+  display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: clamp(20px, 3vw, 56px);
+}
+.work-title { text-align: left; margin: 0; font-weight: 900; font-stretch: 125%; font-size: clamp(40px, 6vw, 96px); line-height: .85; letter-spacing: -0.02em; color: var(--fg); }
+/* the row runs off the right edge; both ends fade out */
+.work-carousel {
+  overflow: hidden; min-width: 0; padding-block: 28px; touch-action: pan-y; cursor: grab; user-select: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 92%, transparent 100%);
+}
+.work-carousel.is-dragging { cursor: grabbing; }
+.work-track { display: flex; gap: clamp(14px, 1.6vw, 24px); width: max-content; will-change: transform; }
+@media (max-width: 760px) {
+  .work { grid-template-columns: minmax(0, 1fr); padding-left: 0; }
+  .work-title { text-align: center; margin-bottom: 8px; }
+}
+.card { perspective: 900px; flex: none; width: clamp(220px, 25vw, 340px); }
+.poster {
+  position: relative; aspect-ratio: 3 / 5; max-width: 100%; overflow: hidden; border-radius: 8px;
+  background: var(--pbg); color: var(--pfg); isolation: isolate; container-type: size;
+  transform-style: preserve-3d;
+}
+.poster .blob { position: absolute; border-radius: 47% 53% 61% 39% / 45% 39% 61% 55%; background: var(--pblob); }
+.poster .lat { position: absolute; top: 50%; translate: 0 -50%; left: 8%; right: 8%; text-align: center; font-weight: 800; font-stretch: 100%; font-size: clamp(22px, 2.2vw, 34px); line-height: 1; letter-spacing: -0.02em; overflow-wrap: anywhere; z-index: 2; }
+.poster .circle { position: absolute; border: 1.5px solid currentColor; border-radius: 50%; z-index: 1; }
+/* photo cards: name along the bottom over a soft shade */
+.poster .cap {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 48px 16px 14px;
+  background: linear-gradient(transparent, rgba(20, 14, 9, .75)); color: #fff;
+  font-weight: 800; font-size: clamp(18px, 1.6vw, 24px); line-height: 1.1; letter-spacing: -0.01em;
+}
+.card[role="button"] { cursor: pointer; }
+.card[role="button"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 10px; }
+.poster .cover { pointer-events: none; }
+.poster .theme-art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* ---------- project viewer (lightbox.ts): the picture large, the description beside it ---------- */
+.lb { position: fixed; inset: 0; z-index: 85; display: grid; place-items: center; padding: clamp(12px, 3vw, 40px); }
+.lb[hidden] { display: none; }
+.lb-backdrop { position: absolute; inset: 0; background: rgba(18, 13, 9, .86); }
+.lb-panel {
+  position: relative; display: flex; max-width: min(1100px, 100%); max-height: calc(100svh - 2 * clamp(12px, 3vw, 40px));
+  background: #362a20; border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .45);
+}
+.lb-media { margin: 0; flex: 1 1 auto; min-width: 0; display: grid; place-items: center; background: #1a130e; }
+.lb-media img { display: block; max-width: 100%; max-height: calc(100svh - 2 * clamp(12px, 3vw, 40px)); object-fit: contain; }
+.lb-info { flex: 0 0 clamp(240px, 28vw, 340px); display: flex; flex-direction: column; gap: 14px; padding: 40px 28px 28px; overflow: auto; }
+.lb-info h3 { margin: 0; font-weight: 900; font-stretch: 115%; font-size: clamp(26px, 2.6vw, 36px); line-height: 1; letter-spacing: -0.01em; }
+.lb-desc { margin: 0; color: var(--ink-dim); font-size: 17px; line-height: 1.5; }
+.lb-links { display: grid; gap: 8px; margin-top: 6px; }
+.lb-link { color: var(--accent); font-weight: 700; }
+.lb-link:hover { text-decoration: underline; }
+.lb-link[hidden] { display: none; }
+/* no photo: show the card's own artwork, large */
+.lb-media.is-art { padding: clamp(16px, 2.5vw, 32px); }
+.lb-media.is-art .poster { height: min(62svh, 560px); width: auto; aspect-ratio: 3 / 5; }
+.lb-media.is-art .poster .lat { font-size: clamp(26px, 3vw, 40px); }
+.lb-close {
+  position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; border: 0; border-radius: 50%;
+  background: rgba(0, 0, 0, .4); color: var(--fg); font-size: 22px; line-height: 1; cursor: pointer;
+}
+.lb-close:hover { background: rgba(0, 0, 0, .6); }
+@media (max-width: 760px) {
+  .lb-panel { flex-direction: column; overflow: auto; }
+  .lb-media img { max-height: 62svh; }
+  .lb-info { flex: none; padding: 22px 20px 24px; }
+}
+
+/* ---------- index list with cursor preview ---------- */
+
+
+@media (max-width: 700px) {
+  .g1 { top: 16%; } .g2 { bottom: 20%; }
+      .hide-sm { display: none; }
+}
+.poster .blob.alt { background: var(--palt); }
+.poster .cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.card > a { display: block; }
+.hero.single .g1 { top: 50%; left: 50%; translate: -50% -50%; font-size: clamp(64px, 14vw, 220px); letter-spacing: 0.025em; font-stretch: semi-expanded; }
+
+/* ---------- scroll cue on the landing screen ---------- */
+.scroll-cue {
+  position: absolute; left: 50%; bottom: calc(28px + env(safe-area-inset-bottom, 0px)); translate: -50% 0; z-index: 3;
+  display: grid; place-items: center; width: 44px; height: 44px; color: var(--fg);
+}
+.scroll-cue svg { width: 28px; height: 28px; }
+.scroll-cue:hover { color: var(--accent); }
+
+/* ---------- scroll progress: a honey bar on the right edge instead of a scrollbar ---------- */
+html { scrollbar-width: none; }
+::-webkit-scrollbar { display: none; }
+.progress {
+  position: fixed; z-index: 60; pointer-events: none;
+  top: 0; bottom: 0; right: env(safe-area-inset-right, 0px); width: 4px;
+  background: var(--border);
+}
+.progress i { display: block; width: 100%; height: 100%; background: var(--accent); transform-origin: 50% 0; transform: scaleY(0); }
+
+/* ---------- contact: heading on the left; a big e-mail card and profile tiles on the right (links.ts) ---------- */
+.contact-sec {
+  position: relative; z-index: 2; padding-block: clamp(80px, 12vh, 160px);
+  display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: center; gap: clamp(28px, 4vw, 72px);
+  max-width: calc(1240px + var(--gutter-l) + var(--gutter-r)); margin-inline: auto;
+}
+.contact-sub { margin-top: 18px; max-width: 28ch; color: var(--ink-dim); font-size: clamp(16px, 1.4vw, 19px); line-height: 1.45; }
+.contact-body { display: grid; gap: 14px; min-width: 0; }
+.mail-card {
+  display: grid; gap: 14px; padding: clamp(22px, 2.6vw, 34px); border-radius: 18px;
+  background: var(--surface); border: 1px solid var(--border);
+}
+.mail-label { font-family: var(--f-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-dim); }
+.mail-addr {
+  font-weight: 900; font-stretch: 110%; font-size: clamp(24px, 3.6vw, 48px); line-height: 1; letter-spacing: -0.015em;
+  color: var(--fg); overflow-wrap: anywhere; transition: color .2s;
+}
+.mail-addr:hover { color: var(--accent); }
+.mail-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.mail-btn {
+  padding: 11px 18px; border-radius: 999px; border: 1px solid var(--border); background: transparent;
+  color: var(--fg); font: inherit; font-weight: 700; font-size: 15px; cursor: pointer; transition: background .2s, border-color .2s, color .2s;
+}
+.mail-btn:hover { border-color: var(--accent); }
+.mail-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.mail-btn.primary:hover { background: var(--fg); border-color: var(--fg); }
+.mail-btn.is-done { background: var(--moss); border-color: var(--moss); color: var(--bg); }
+.tiles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.tile {
+  position: relative; display: grid; align-content: start; gap: 6px; height: 100%; padding: 18px 16px 16px; border-radius: 14px;
+  background: var(--surface); border: 1px solid var(--border); color: var(--fg);
+  transition: transform .2s, border-color .2s, background .2s;
+}
+.tile-icon { width: 30px; height: 30px; margin-bottom: 8px; transition: color .2s; }
+.tile-label { font-weight: 800; font-size: 17px; letter-spacing: -0.01em; }
+.tile-note { color: var(--ink-dim); font-size: 13px; line-height: 1.3; }
+.tile-arrow { position: absolute; top: 14px; right: 14px; color: var(--ink-dim); transition: color .2s, transform .2s; }
+.tile:hover, .tile:focus-visible { transform: translateY(-3px); border-color: var(--brand); background: color-mix(in srgb, var(--brand) 12%, var(--surface)); }
+.tile:hover .tile-icon, .tile:focus-visible .tile-icon, .tile:hover .tile-arrow { color: var(--brand); }
+.tile:hover .tile-arrow { transform: translate(2px, -2px); }
+@media (max-width: 900px) {
+  .contact-sec { grid-template-columns: minmax(0, 1fr); }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Headings are revealed with a clip-path, which clips at the box edge; give descenders (the "j") room inside it */
+.work-title, .sec-head h2 { padding-bottom: 0.16em; }
+
+/* ---------- spinning beaver at the bottom of the page ---------- */
+.bubble-sec {
+  position: relative; z-index: 2; display: grid; justify-items: center;
+  padding-block: clamp(60px, 10vh, 120px) clamp(120px, 20vh, 220px);
+  padding-left: var(--gutter-l); padding-right: var(--gutter-r);
+}
+.magnet {
+  width: clamp(160px, 19vw, 230px); aspect-ratio: 1; max-width: 100%; border-radius: 50%;
+  background: var(--accent-deep);
+}
+/* with WebGL the plain ball becomes the spinning beaver (spinner.ts) */
+.magnet.has-spinner { position: relative; width: clamp(320px, 46vw, 640px); background: transparent; border-radius: 0; }
+/* grab it, throw it: while thrown it flies fixed over the page and a slot keeps its place (spinner.ts) */
+.magnet.has-spinner { cursor: default; touch-action: none; user-select: none; -webkit-user-select: none; }
+.magnet.has-spinner.is-held { cursor: default; }
+.magnet.is-flying { position: fixed; left: 0; top: 0; z-index: 75; margin: 0; will-change: transform; }
+.magnet-slot { max-width: 100%; }
+.magnet .spinner { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* ---------- now playing (Spotify, via /api/spotify): a small widget pinned to the top centre ---------- */
+.np {
+  position: fixed; z-index: 80; top: calc(12px + env(safe-area-inset-top, 0px)); left: 50%; translate: -50% 0;
+  width: min(300px, calc(100vw - 32px)); height: 64px;
+  display: flex; align-items: center; gap: 12px; padding: 8px 16px 8px 10px;
+  border-radius: 14px; background: rgba(43, 33, 25, .9); border: 1px solid var(--border);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .28); color: var(--fg);
+}
+.np-media { position: relative; flex: none; width: calc(var(--np-art) * 1.45); height: var(--np-art); --np-art: 46px; }
+/* the record sits behind the cover and peeks out to the left */
+.np-disk {
+  position: absolute; left: 0; top: 50%; width: calc(var(--np-art) * .94); aspect-ratio: 1; margin-top: calc(var(--np-art) * -.47);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, var(--accent) 0 17%, var(--bg) 17.5% 19%, transparent 19.5%),
+    repeating-radial-gradient(circle, #1a130e 0 2px, #231a13 2px 3px),
+    #1a130e;
+}
+.np-disk span { position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 30deg, transparent 0 20%, rgba(255, 255, 255, .10) 25%, transparent 32% 70%, rgba(255, 255, 255, .07) 75%, transparent 82%); }
+.np-art {
+  position: absolute; right: 0; top: 0; width: var(--np-art); height: var(--np-art); border-radius: 6px; overflow: hidden;
+  background: var(--accent-deep);
+}
+.np-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.np-info { display: grid; gap: 2px; min-width: 0; flex: 1; }
+.np-song, .np-artist { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.np-song { font-weight: 800; font-size: 15px; line-height: 1.2; letter-spacing: -0.01em; }
+.np-artist { color: var(--ink-dim); font-weight: 600; font-size: 12.5px; line-height: 1.2; }
+.np-song a:hover, .np-artist a:hover { color: var(--accent); }
