@@ -45,7 +45,7 @@ export function createSpinner(canvas: HTMLCanvasElement, reduce: boolean): ((now
 
   const fit = () => {
     const w = canvas.clientWidth || 200, h = canvas.clientHeight || 200;
-    renderer.setPixelRatio(Math.min((devicePixelRatio || 1) * 1.5, 2.5));
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();

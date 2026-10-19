@@ -748,8 +748,8 @@ export function createBeaver(canvas: HTMLCanvasElement, name: string, reduce: bo
   let exitX = 20, camD = 12;
   const fit = () => {
     const w = canvas.clientWidth || innerWidth, h = canvas.clientHeight || innerHeight;
-    // render above screen resolution (on top of the 4x MSAA) so edges come out smooth; capped to keep it fast
-    renderer.setPixelRatio(Math.min((devicePixelRatio || 1) * 1.5, 2.5));
+    // Keep high-DPI render targets bounded so integrated GPUs do not render several times the visible pixels.
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     const tan = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));

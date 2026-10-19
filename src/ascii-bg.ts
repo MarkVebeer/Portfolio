@@ -13,8 +13,8 @@ const DEEP = hex(0x7a5233);
 const ACCENT = hex(0xc98a45);
 const RAMP = " .:-=+*#%@";
 
-const SIM_RES = 128, DYE_RES = 512, CELL = 10; // CELL: glyph size in CSS px
-const DENSITY_FADE = 0.4, MOTION_FADE = 0.5, UPWARD = 40, CURL = 29, PRESSURE = 0.9, PRESSURE_ITERS = 20;
+const SIM_RES = 96, DYE_RES = 384, CELL = 10; // CELL: glyph size in CSS px
+const DENSITY_FADE = 0.4, MOTION_FADE = 0.5, UPWARD = 40, CURL = 29, PRESSURE = 0.9, PRESSURE_ITERS = 10;
 const SPLAT_RADIUS = 0.0015, SPLAT_FORCE = 6000, SPLAT_DYE = 0.4, NOISE_FORCE = 105, NOISE_DYE = 0.77;
 const DENSITY_FLOOR = 0.25, CONTRAST = 1.85, DITHER = 0.3, LIFT = 0.35, MAX_VEL = 240;
 /** how strongly glyphs show over the page (1 = full colour) */
@@ -359,7 +359,7 @@ export function createAsciiBg(canvas: HTMLCanvasElement, reduce: boolean): (now:
     });
   };
 
-  let time = 0, last = performance.now();
+  let time = 0, last = performance.now(), lastFrame = 0;
   if (reduce) {
     // reduced motion: let the noise settle into a pattern once, then hold that still frame
     for (let i = 0; i < 240; i++) { time += 1 / 30; step(1 / 30, time); }
@@ -370,6 +370,8 @@ export function createAsciiBg(canvas: HTMLCanvasElement, reduce: boolean): (now:
 
   return (now: number) => {
     if (resizeQueued) { resize(); resizeQueued = false; }
+    if (now - lastFrame < 1000 / 30) return;
+    lastFrame = now;
     const dt = Math.min((now - last) / 1000, 1 / 15);
     last = now;
     time += dt;

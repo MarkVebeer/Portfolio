@@ -50,6 +50,10 @@ if (reduce) {
 }
 
 const loop = (now: number) => {
+  if (document.hidden) {
+    requestAnimationFrame(loop);
+    return;
+  }
   smooth.raf(now);
   state.mouse.x += (state.mouse.tx - state.mouse.x) * 0.08;
   state.mouse.y += (state.mouse.ty - state.mouse.y) * 0.08;
